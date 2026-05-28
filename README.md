@@ -2,6 +2,7 @@
 
 This is the official repository for the paper:
 
-**GLASS: Global–Local Activation Steering with Sparse Priors for Personalized Text Generation.**
+**From Profiles to Steering Vectors: Global Sparse Priors and Local
+Semantic Calibration for Personalized Text Generation**
 
 🚧 The code, data preprocessing scripts, and precomputed style-vector banks will be released here soon. Stay tuned.
