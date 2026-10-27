@@ -1,0 +1,79 @@
+{
+  "common": {
+    "dataset": "LaMP_4",
+    "model_path": "${GLASS_MODEL}",
+    "device": "cuda:0"
+  },
+  "prepare": {
+    "raw_dir": "${GLASS_DATA}/LaMP_4/raw",
+    "train_output": "${GLASS_RUN}/LaMP_4/train.pkl",
+    "test_output": "${GLASS_RUN}/LaMP_4/test.pkl",
+    "threshold": 200,
+    "seed": 42
+  },
+  "cluster": {
+    "train_input": "${GLASS_RUN}/LaMP_4/train.pkl",
+    "test_input": "${GLASS_RUN}/LaMP_4/test.pkl",
+    "clusters_output": "${GLASS_RUN}/LaMP_4/clusters.json",
+    "train_output": "${GLASS_RUN}/LaMP_4/anchors.pkl",
+    "test_output": "${GLASS_RUN}/LaMP_4/test_clusters.pkl",
+    "seed": 42,
+    "num_workers": 1
+  },
+  "global": {
+    "input_path": "${GLASS_RUN}/LaMP_4/train.pkl",
+    "output_path": "${GLASS_RUN}/LaMP_4/global.pt",
+    "sae_model_path": "${GLASS_SAE}",
+    "global_layer": 19,
+    "max_profile_samples": 20,
+    "max_length": 512
+  },
+  "rank": {
+    "input_path": "${GLASS_RUN}/LaMP_4/anchors.pkl",
+    "output_path": "${GLASS_RUN}/LaMP_4/ranked.json",
+    "global_vectors_path": "${GLASS_RUN}/LaMP_4/global.pt",
+    "global_layer": 19,
+    "global_strength": 1.0,
+    "batch_size": 2,
+    "max_new_tokens": 30
+  },
+  "pairs": {
+    "input_path": "${GLASS_RUN}/LaMP_4/anchors.pkl",
+    "ranked_path": "${GLASS_RUN}/LaMP_4/ranked.json",
+    "output_path": "${GLASS_RUN}/LaMP_4/accepted.json",
+    "error_output_path": "${GLASS_RUN}/LaMP_4/rejected.json",
+    "global_vectors_path": "${GLASS_RUN}/LaMP_4/global.pt",
+    "global_layer": 19,
+    "global_strength": 1.0,
+    "batch_size": 1,
+    "max_new_tokens": 50,
+    "k": 5,
+    "num_negatives": 2,
+    "seed": 42,
+    "min_gain": 0
+  },
+  "local": {
+    "input_path": "${GLASS_RUN}/LaMP_4/accepted.json",
+    "output_path": "${GLASS_RUN}/LaMP_4/local",
+    "global_vectors_path": "${GLASS_RUN}/LaMP_4/global.pt",
+    "global_layer": 19,
+    "local_layer": 23,
+    "priming_strength": 0.4
+  },
+  "generate": {
+    "input_path": "${GLASS_RUN}/LaMP_4/test_clusters.pkl",
+    "output_path": "${GLASS_RUN}/LaMP_4/generation.json",
+    "global_vectors_path": "${GLASS_RUN}/LaMP_4/global.pt",
+    "local_vectors_path": "${GLASS_RUN}/LaMP_4/local",
+    "global_layer": 19,
+    "local_layer": 23,
+    "global_strength": 0.8,
+    "local_strength": 0.1,
+    "max_new_tokens": 50
+  },
+  "evaluate": {
+    "input_path": "${GLASS_RUN}/LaMP_4/generation.json",
+    "output_path": "${GLASS_RUN}/LaMP_4/metrics.json",
+    "meteor": false
+  }
+}

@@ -1,0 +1,14 @@
+# One environment for every GLASS stage (Python 3.12 recommended).
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.8.0+cu126
+transformers==4.57.1
+numpy==2.2.6
+scipy==1.16.1
+scikit-learn==1.7.1
+pandas==2.3.1
+pyarrow==21.0.0
+rouge-score==0.1.2
+nltk==3.9.1
+safetensors==0.5.3
+threadpoolctl==3.6.0
+tqdm==4.70.1

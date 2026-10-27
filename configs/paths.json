@@ -1,0 +1,4 @@
+{
+  "model_path": "models/Meta-Llama-3-8B",
+  "sae_model_path": "models/sae-llama-3-8b-32x-v2/layers.19"
+}

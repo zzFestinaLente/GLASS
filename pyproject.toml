@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glass-steering"
+version = "0.1.0"
+description = "Global–Local Activation Steering with Sparse priors for personalized generation"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+dependencies = [
+  "torch==2.8.0+cu126", "transformers==4.57.1", "numpy==2.2.6",
+  "scikit-learn==1.7.1", "scipy==1.16.1", "pandas==2.3.1",
+  "pyarrow==21.0.0", "rouge-score==0.1.2", "nltk==3.9.1",
+  "safetensors==0.5.3", "threadpoolctl==3.6.0", "tqdm==4.70.1",
+]
+
+[project.urls]
+Repository = "https://github.com/zzFestinaLente/GLASS"
+
+[project.scripts]
+glass = "glass.__main__:main"
+
+[tool.setuptools]
+license-files = ["LICENSE", "THIRD_PARTY_LICENSES.md"]
+
+[tool.setuptools.packages.find]
+include = ["glass*"]

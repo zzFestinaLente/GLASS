@@ -1,0 +1,79 @@
+{
+  "common": {
+    "dataset": "product_review_temporal",
+    "model_path": "${GLASS_MODEL}",
+    "device": "cuda:0"
+  },
+  "prepare": {
+    "raw_dir": "${GLASS_DATA}/product_review_temporal/raw",
+    "train_output": "${GLASS_RUN}/product_review_temporal/train.pkl",
+    "test_output": "${GLASS_RUN}/product_review_temporal/test.pkl",
+    "threshold": 200,
+    "seed": 42
+  },
+  "cluster": {
+    "train_input": "${GLASS_RUN}/product_review_temporal/train.pkl",
+    "test_input": "${GLASS_RUN}/product_review_temporal/test.pkl",
+    "clusters_output": "${GLASS_RUN}/product_review_temporal/clusters.json",
+    "train_output": "${GLASS_RUN}/product_review_temporal/anchors.pkl",
+    "test_output": "${GLASS_RUN}/product_review_temporal/test_clusters.pkl",
+    "seed": 42,
+    "num_workers": 1
+  },
+  "global": {
+    "input_path": "${GLASS_RUN}/product_review_temporal/train.pkl",
+    "output_path": "${GLASS_RUN}/product_review_temporal/global.pt",
+    "sae_model_path": "${GLASS_SAE}",
+    "global_layer": 19,
+    "max_profile_samples": 20,
+    "max_length": 512
+  },
+  "rank": {
+    "input_path": "${GLASS_RUN}/product_review_temporal/anchors.pkl",
+    "output_path": "${GLASS_RUN}/product_review_temporal/ranked.json",
+    "global_vectors_path": "${GLASS_RUN}/product_review_temporal/global.pt",
+    "global_layer": 19,
+    "global_strength": 0.5,
+    "batch_size": 2,
+    "max_new_tokens": 450
+  },
+  "pairs": {
+    "input_path": "${GLASS_RUN}/product_review_temporal/anchors.pkl",
+    "ranked_path": "${GLASS_RUN}/product_review_temporal/ranked.json",
+    "output_path": "${GLASS_RUN}/product_review_temporal/accepted.json",
+    "error_output_path": "${GLASS_RUN}/product_review_temporal/rejected.json",
+    "global_vectors_path": "${GLASS_RUN}/product_review_temporal/global.pt",
+    "global_layer": 19,
+    "global_strength": 0.4,
+    "batch_size": 2,
+    "max_new_tokens": 450,
+    "k": 3,
+    "num_negatives": 3,
+    "seed": 42,
+    "min_gain": 0
+  },
+  "local": {
+    "input_path": "${GLASS_RUN}/product_review_temporal/accepted.json",
+    "output_path": "${GLASS_RUN}/product_review_temporal/local",
+    "global_vectors_path": "${GLASS_RUN}/product_review_temporal/global.pt",
+    "global_layer": 19,
+    "local_layer": 23,
+    "priming_strength": 0.1
+  },
+  "generate": {
+    "input_path": "${GLASS_RUN}/product_review_temporal/test_clusters.pkl",
+    "output_path": "${GLASS_RUN}/product_review_temporal/generation.json",
+    "global_vectors_path": "${GLASS_RUN}/product_review_temporal/global.pt",
+    "local_vectors_path": "${GLASS_RUN}/product_review_temporal/local",
+    "global_layer": 19,
+    "local_layer": 23,
+    "global_strength": 0.3,
+    "local_strength": 0.8,
+    "max_new_tokens": 450
+  },
+  "evaluate": {
+    "input_path": "${GLASS_RUN}/product_review_temporal/generation.json",
+    "output_path": "${GLASS_RUN}/product_review_temporal/metrics.json",
+    "meteor": false
+  }
+}
