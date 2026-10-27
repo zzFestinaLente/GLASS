@@ -1,4 +1,4 @@
-# From Profiles to Steering Vectors: Global Sparse Priors and Local Semantic Calibration for Personalized Text Generation
+# From Profiles to Steering Vectors: Global Sparse Priors and Local Semantic Calibration for Personalized Text Generation (EMNLP 2026 SAC Highlight)
 
 [![arXiv](https://img.shields.io/badge/arXiv-2607.21620-b31b1b?logo=arxiv)](https://arxiv.org/abs/2607.21620)
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Artifacts-FFD21E?logo=huggingface&logoColor=black)](https://huggingface.co/datasets/FestinaLente123/GLASS-artifacts)
